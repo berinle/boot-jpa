@@ -49,7 +49,7 @@ public class DemoApplication implements ApplicationRunner {
 class Foo {
 	@Id
 	@GeneratedValue
-	private String id;
+	private Long id;
 	private String name;
 }
 
@@ -64,7 +64,11 @@ interface CustomFooRepository {
 	String someCustomFind(String name);
 }
 
-class CustomFooRepositoryImpl implements CustomFooRepository {
+//Conflicting info from what is documented at
+// https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.custom-implementations
+class CustomFooRepositoryImpl implements CustomFooRepository { //this doesn't work
+//class FooRepositoryImpl implements CustomFooRepository { //this works!
+
 	@Autowired private FooRepository repo;
 
 	@Override
